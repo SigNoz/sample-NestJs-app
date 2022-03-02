@@ -47,4 +47,4 @@ $ npm run start:prod
 
 Now the app will be running at http://localhost:3001  🎉
 
-The exporter IP is set to `localhost` so app will be sending data to localhost IP, if SigNoz is installed that different IP then update that IP to exporter IP at this [line](https://github.com/SigNoz/sample-NestJs-app/blob/f82a70648a41aea08bc86d727947b82a388a0d43/src/tracer.ts#L14).
+The exporter IP is set to `localhost` so app will be sending data to localhost IP, if SigNoz is installed that different IP then update that IP to exporter IP at this [line](https://github.com/SigNoz/sample-NestJs-app/blob/b8ee9ed9ed5024f715e41fe2f1e4a56401ecbca5/src/tracer.ts#L16).
