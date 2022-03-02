@@ -49,4 +49,7 @@ Now the app will be running at http://localhost:3001  🎉
 
 Make some requests to this application by calling the above URL multiple times. You can then check your NestJS application metrics in SigNoz dashboard
 
-The exporter IP is set to `localhost` so app will be sending data to localhost IP, if SigNoz is installed that different IP then update that IP to exporter IP at this [line](https://github.com/SigNoz/sample-NestJs-app/blob/b8ee9ed9ed5024f715e41fe2f1e4a56401ecbca5/src/tracer.ts#L16).
+Note
+-----
+
+The exporter IP is set to `localhost` so app will be sending data to localhost IP, if SigNoz is installed that different IP then update that IP at this [line](https://github.com/SigNoz/sample-NestJs-app/blob/b8ee9ed9ed5024f715e41fe2f1e4a56401ecbca5/src/tracer.ts#L16).
