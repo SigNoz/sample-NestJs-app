@@ -1,8 +1,7 @@
 'use strict';
 
-import * as grpc from '@grpc/grpc-js';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
-import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-grpc';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 import { Resource } from '@opentelemetry/resources';
 import * as opentelemetry from '@opentelemetry/sdk-node';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
@@ -10,8 +9,7 @@ import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions'
 // Configure the SDK to export telemetry data to the console
 // Enable all auto-instrumentations from the meta package
 const exporterOptions = {
-  url: 'http://localhost:4317',
-  credentials: grpc.credentials.createInsecure(),
+  url: 'http://localhost:4318/v1/traces',
 };
 
 const traceExporter = new OTLPTraceExporter(exporterOptions);
