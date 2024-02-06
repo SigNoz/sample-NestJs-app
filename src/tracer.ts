@@ -14,7 +14,7 @@ import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions'
 // Configure the SDK to export telemetry data to the console
 // Enable all auto-instrumentations from the meta package
 const exporterOptions = {
-  url: 'http://localhost:4318/v1/traces',
+  url: 'https://ingest.in.signoz.cloud:443/v1/traces',
 };
 
 const traceExporter = new OTLPTraceExporter(exporterOptions);
@@ -22,7 +22,7 @@ const sdk = new NodeSDK({
   traceExporter,
   instrumentations: [getNodeAutoInstrumentations()],
   resource: new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: 'sampleNestJsApp',
+    [SemanticResourceAttributes.SERVICE_NAME]: 'sample-nestjs-app-1',
   }),
 });
 
