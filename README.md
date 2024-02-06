@@ -1,55 +1,53 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+## Overview
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This repo is meant to demonstrate the auto-instrumentation of a Nestjs application with OpenTelemetry. Once the application is instrumented with OpenTelemetry, it is sent to SigNoz for monitoring and visualization.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Steps to instrument Nestjs app with OpenTelemetry
 
-## Description
+### Setting up SigNoz
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+You need a backend to which you can send the collected data for monitoring and visualization. [SigNoz](https://signoz.io/) is an OpenTelemetry-native APM that is well-suited for visualizing OpenTelemetry data.
 
-## Installation
+SigNoz cloud is the easiest way to run SigNoz. [Sign up](https://signoz.io/teams/) here for a free account and get 30 days of unlimited access to all features.
+
+### Instrument app with OpenTelemetry
+
+All the required OpenTelemetry packages are in `package.json` file. We have also configured the `tracer.ts` file with the endpoint for SigNoz cloud. You can check detailed instructions [here](https://signoz.io/docs/instrumentation/nestjs/).
+
+### Run your application
+
+Install the packages:
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+Run your application:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+OTEL_EXPORTER_OTLP_HEADERS="signoz-access-token=<SIGNOZ_INGESTION_KEY>" nest start
 ```
+
+You can get your ingestion details in SigNoz account under Settings --> Ingestion Settings.
+
+![ingestion-details](https://github.com/SigNoz/sample-NestJs-app/assets/83692067/e20c1978-6fe1-4087-bd82-0407f903d81e)
+
 
 Now the app will be running at http://localhost:3001  🎉
 
-Make some requests to this application by calling the above URL multiple times. You can then check your NestJS application metrics in SigNoz dashboard
+Make some requests to this application by calling the above URL multiple times. You can then check your NestJS application metrics in SigNoz dashboard.
 
-Note
------
 
-The exporter IP is set to `localhost` so app will be sending data to localhost IP, if SigNoz is installed that different IP then update that IP at this [line](https://github.com/SigNoz/sample-NestJs-app/blob/b8ee9ed9ed5024f715e41fe2f1e4a56401ecbca5/src/tracer.ts#L16).
+Sample Nestjs application being monitored in SigNoz:
+![sample-nestjs-app-signoz](https://github.com/SigNoz/sample-NestJs-app/assets/83692067/434e3ffe-e226-4d32-8116-6f9fd1866d20)
+
+Out-of-the-box charts for Nestjs application metrics in SigNoz with OpenTelemetry auto-instrumentation:
+
+<img width="1440" alt="opentelemetry-nestjs-app-metrics" src="https://github.com/SigNoz/sample-NestJs-app/assets/83692067/cb800492-da1a-4c47-97eb-b2107141d34b">
+
+OpenTelemetry Nestjs trace data visualized with flamegraphs:
+
+<img width="1440" alt="opentelemetry-nestjs-flamegraphs" src="https://github.com/SigNoz/sample-NestJs-app/assets/83692067/69dac024-0f1c-48f3-b738-b7f156d2c218">
+
+
+
