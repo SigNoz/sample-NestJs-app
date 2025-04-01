@@ -1,53 +1,123 @@
-## Overview
+# Project Name
 
-This repo is meant to demonstrate the auto-instrumentation of a Nestjs application with OpenTelemetry. Once the application is instrumented with OpenTelemetry, it is sent to SigNoz for monitoring and visualization.
+This repository contains two sub-projects: `no-code-auto` and `code-level-auto`, both of which integrate with SigNoz Cloud for tracing.
 
-## Steps to instrument Nestjs app with OpenTelemetry
+## Folder Structure
 
-### Setting up SigNoz
-
-You need a backend to which you can send the collected data for monitoring and visualization. [SigNoz](https://signoz.io/) is an OpenTelemetry-native APM that is well-suited for visualizing OpenTelemetry data.
-
-SigNoz cloud is the easiest way to run SigNoz. [Sign up](https://signoz.io/teams/) here for a free account and get 30 days of unlimited access to all features.
-
-### Instrument app with OpenTelemetry
-
-All the required OpenTelemetry packages are in `package.json` file. We have also configured the `tracer.ts` file with the endpoint for SigNoz cloud. You can check detailed instructions [here](https://signoz.io/docs/instrumentation/nestjs/).
-
-### Run your application
-
-Install the packages:
-
-```bash
-$ npm install
+```
+typescript/
+  ├── no-code-auto/
+  └── code-level-auto/
 ```
 
-Run your application:
+## Getting Started
+
+### 1. Clone the repository
+First, clone this repository to your local machine:
 
 ```bash
-OTEL_EXPORTER_OTLP_HEADERS="signoz-access-token=<SIGNOZ_INGESTION_KEY>" nest start
+git clone https://github.com/SigNoz/sample-NestJs-app.git
+cd sample-NestJs-app
 ```
 
-You can get your ingestion details in SigNoz account under Settings --> Ingestion Settings.
+### 2. Install Dependencies
 
-![ingestion-details](https://github.com/SigNoz/sample-NestJs-app/assets/83692067/e20c1978-6fe1-4087-bd82-0407f903d81e)
+Before running either of the sub-projects, you need to install the dependencies.
 
+```bash
+cd typescript
+```
 
-Now the app will be running at http://localhost:3001  🎉
+---
 
-Make some requests to this application by calling the above URL multiple times. You can then check your NestJS application metrics in SigNoz dashboard.
+## Sub-Project 1: no-code-auto
 
+### Instructions to Run
 
-Sample Nestjs application being monitored in SigNoz:
-![sample-nestjs-app-signoz](https://github.com/SigNoz/sample-NestJs-app/assets/83692067/434e3ffe-e226-4d32-8116-6f9fd1866d20)
+1. Navigate to the `no-code-auto` directory:
 
-Out-of-the-box charts for Nestjs application metrics in SigNoz with OpenTelemetry auto-instrumentation:
+    ```bash
+    cd no-code-auto
+    ```
 
-<img width="1440" alt="opentelemetry-nestjs-app-metrics" src="https://github.com/SigNoz/sample-NestJs-app/assets/83692067/cb800492-da1a-4c47-97eb-b2107141d34b">
+2. Install the dependencies:
 
-OpenTelemetry Nestjs trace data visualized with flamegraphs:
+    ```bash
+    yarn install
+    ```
 
-<img width="1440" alt="opentelemetry-nestjs-flamegraphs" src="https://github.com/SigNoz/sample-NestJs-app/assets/83692067/69dac024-0f1c-48f3-b738-b7f156d2c218">
+3. Set the environment variables as follows:
 
+    ```bash
+    export OTEL_TRACES_EXPORTER="otlp"
+    export OTEL_EXPORTER_OTLP_ENDPOINT="https://ingest.<region>.signoz.cloud:443"
+    export OTEL_NODE_RESOURCE_DETECTORS="env,host,os"
+    export OTEL_SERVICE_NAME="<service_name>"
+    export OTEL_EXPORTER_OTLP_HEADERS="signoz-ingestion-key=<your-ingestion-key>"
+    export NODE_OPTIONS="--require @opentelemetry/auto-instrumentations-node/register"
+    ```
 
+4. Replace the placeholders:
+    - Set `<region>` to match your SigNoz Cloud region.
+    - Replace `<your-ingestion-key>` with your SigNoz ingestion key.
+    - Replace `<service_name>` with the name of your service.
 
+5. Finally, run the application:
+
+    ```bash
+    <your_run_command>
+    ```
+
+---
+
+## Sub-Project 2: code-level-auto
+
+### Instructions to Run
+
+1. Navigate to the `code-level-auto` directory:
+
+    ```bash
+    cd code-level-auto
+    ```
+
+2. Install the dependencies:
+
+    ```bash
+    yarn install
+    ```
+
+3. Open the `tracing.ts` file and modify the `exporterOptions` configuration:
+
+    ```typescript
+    const exporterOptions = {
+      //highlight-start
+      url: 'https://ingest.<region>.signoz.cloud:443/v1/traces',
+      headers: {
+        "signoz-access-token": "<your-ingestion-key>"
+      }
+      //highlight-end
+    };
+    ```
+
+4. Replace the placeholders:
+    - Set `<region>` to match your SigNoz Cloud region.
+    - Replace `<your-ingestion-key>` with your SigNoz ingestion key.
+
+5. Once the configuration is updated, you can run the application:
+
+    ```bash
+    <your_run_command>
+    ```
+
+---
+
+## Troubleshooting
+
+- Ensure that all environment variables are correctly set, particularly the `OTEL_EXPORTER_OTLP_ENDPOINT` and `OTEL_SERVICE_NAME`.
+- Verify that your SigNoz Cloud region and ingestion key are correct.
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
