@@ -1,4 +1,4 @@
-# Project Name
+# Sample NestJs App
 
 This repository contains two sub-projects: `no-code-auto` and `code-level-auto`, both of which integrate with SigNoz Cloud for tracing.
 
