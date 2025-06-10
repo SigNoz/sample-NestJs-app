@@ -23,7 +23,7 @@ const metricReader = new PeriodicExportingMetricReader({
       'signoz-access-token': process.env.SIGNZ_ACCESS_TOKEN || '',
     },
   }),
-  exportIntervalMillis: 10000, // Export metrics every 10 seconds
+  exportIntervalMillis: 60000, // Export metrics every 1 minute
 });
 
 // Initialize SDK with traces and metrics
