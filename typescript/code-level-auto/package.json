@@ -25,8 +25,12 @@
     "@nestjs/platform-express": "^10.0.0",
     "@opentelemetry/api": "^1.6.0",
     "@opentelemetry/auto-instrumentations-node": "^0.39.4",
+    "@opentelemetry/exporter-metrics-otlp-http": "^0.45.1",
     "@opentelemetry/exporter-trace-otlp-http": "^0.45.1",
+    "@opentelemetry/resources": "^1.18.1",
+    "@opentelemetry/sdk-metrics": "^1.18.1",
     "@opentelemetry/sdk-node": "^0.45.1",
+    "@opentelemetry/semantic-conventions": "^1.18.1",
     "axios": "^1.8.4",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
@@ -70,5 +74,6 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
