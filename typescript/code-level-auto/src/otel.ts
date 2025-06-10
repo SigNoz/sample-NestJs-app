@@ -19,7 +19,9 @@ const resource = new Resource({
 const metricReader = new PeriodicExportingMetricReader({
   exporter: new OTLPMetricExporter({
     url: process.env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT || 'http://localhost:4318/v1/metrics',
-    headers: process.env.OTEL_EXPORTER_OTLP_HEADERS ? JSON.parse(process.env.OTEL_EXPORTER_OTLP_HEADERS) : {},
+    headers: {
+      'signoz-access-token': process.env.SIGNZ_ACCESS_TOKEN || '',
+    },
   }),
   exportIntervalMillis: 10000, // Export metrics every 10 seconds
 });
@@ -29,7 +31,9 @@ const sdk = new opentelemetry.NodeSDK({
   resource,
   traceExporter: new OTLPTraceExporter({
     url: process.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT || 'http://localhost:4318/v1/traces',
-    headers: process.env.OTEL_EXPORTER_OTLP_HEADERS ? JSON.parse(process.env.OTEL_EXPORTER_OTLP_HEADERS) : {},
+    headers: {
+      'signoz-access-token': process.env.SIGNZ_ACCESS_TOKEN || '',
+    },
   }),
   metricReader,
   instrumentations: [getNodeAutoInstrumentations()],
